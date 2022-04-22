@@ -1,0 +1,41 @@
+{
+  "name": "sdc-products",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js",
+    "lint": "eslint ./",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdc-cinnamon/sdc-products.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sdc-cinnamon/sdc-products/issues"
+  },
+  "homepage": "https://github.com/sdc-cinnamon/sdc-products#readme",
+  "dependencies": {
+    "axios": "^0.26.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^27.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.13.0",
+    "eslint-plugin-react": "^7.29.4",
+    "express": "^4.17.3",
+    "jest": "^27.5.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
+    "sequelize": "^6.19.0"
+  },
+  "jest": {
+    "testRegex": "((\\.|/*.)(spec))\\.js?$",
+    "verbose": true
+  }
+}
