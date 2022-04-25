@@ -12,8 +12,8 @@ services:
       - POSTGRES_PASSWORD=mysecretpassword
     volumes:
       # - db:/var/lib/postgresql/data
-      - ./products:/home/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      # - ./products:/home/data
+      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
   api:
     tty: true
     container_name: products-api
@@ -36,6 +36,11 @@ services:
       - db
     volumes:
       - ./server:/server
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 # volumes:
 #   db:
 #     driver: local
