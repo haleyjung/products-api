@@ -11,7 +11,9 @@ COPY . .
 RUN npm install
 
 # Defind what port app binds to
-EXPOSE 3000
+ENV PORT 3030
+EXPOSE 3030
 
 # Defind the runtime
-CMD [ "node", "index.js" ]
+# CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]

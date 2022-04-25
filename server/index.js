@@ -109,6 +109,21 @@ app.get('/products/:product_id/styles', (req, res) => {
     .catch(err => console.log(err.message));
 });
 
+// app.get('/cart', (req, res) => {
+//   let productId = req.body.product_id;
+//   let count = 0;
+//   pool
+//     .query(`SELECT product_id AS sku_id FROM cart`)
+//     .then(result => {
+//       for (let i = 0; i < result.rows.length; i++) {
+//         let eachProduct = result.rows[i];
+//         eachProdcut.count = count;
+//       }
+//       res.send(result.rows)
+//     })
+//     .catch(err => res.status(500).send(`Error getting details of product: ${err.message}`));
+// });
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
 });

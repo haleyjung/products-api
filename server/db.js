@@ -10,9 +10,32 @@ const pool = new Pool({
   database: "products"
 });
 
-pool.connect()
-  .then(() => console.log('connected!'))
-  .catch((err) => console.log('connection error:', err.message));
+// pool.connect()
+//   .then(() => console.log('connected!'))
+//   .catch((err) => console.log('connection error:', err.message));
+
+  const poolWrapper = {
+      async connect() {
+          for (let nRetry = 1; ; nRetry++) {
+              try {
+                  const client = await pool.connect();
+                  if (nRetry > 1) {
+                      console.info('Now successfully connected to Postgres');
+                  }
+                  return client;
+              } catch (e) {
+                  if (e.toString().includes('ECONNREFUSED') && nRetry < 5) {
+                      console.info('ECONNREFUSED connecting to Postgres, ' +
+                          'maybe container is not ready yet, will retry ' + nRetry);
+                      // Wait 1 second
+                      await new Promise(resolve => setTimeout(resolve, 1000));
+                  } else {
+                      throw e;
+                  }
+              }
+          }
+      }
+  };
 
 module.exports = pool;
 
