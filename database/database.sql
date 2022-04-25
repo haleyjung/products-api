@@ -45,10 +45,6 @@ CREATE TABLE photos (
   thumbnail_url TEXT,
   PRIMARY KEY(id),
   styles_id integer REFERENCES styles
-  -- CONSTRAINT fk_photos
-  --   FOREIGN KEY (styles_id)
-  --     REFERENCES styles(id)
-  --     ON DELETE CASCADE
 );
 
 CREATE TABLE skus (
@@ -58,3 +54,5 @@ CREATE TABLE skus (
   PRIMARY KEY(id),
   styles_id integer REFERENCES styles
 );
+
+ALTER TABLE styles ALTER COLUMN default_style TYPE bool USING default_style::int::bool;
