@@ -1,0 +1,6 @@
+PORT="paste_port_number"
+PG_PORT="paste_pg_port_number"
+PG_USER="paste_username"
+PG_PASSWORD="paste_password"
+PG_HOST='paste_IP_address'
+PG_DBNAME="page_pg_database_name"

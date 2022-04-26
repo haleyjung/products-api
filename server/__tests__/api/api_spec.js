@@ -1,22 +1,47 @@
 const frisby = require('frisby');
 
-let productId = 37311;
+let product_id = 37311;
+let baseURL = `http://localhost:3030/products/${product_id}/`;
 
-it ('GET request for a single product returns a status of 200 OK', function () {
+describe('Product', function () {
+  it ('GET request should return a status of 200 OK', function () {
   return frisby
-    .get(`http://0.0.0.0:3030/products/${productId}`)
+    .get(`${baseURL}`)
     .expect('status', 200);
+  });
+
+  it ('should have a JSON Content-Type header', function () {
+    return frisby
+      .get(`${baseURL}`)
+      .expect('header', 'Content-Type', 'application/json; charset=utf-8');
+  });
 });
 
-it ('GET request for styles returns a status of 200 OK', function () {
-  return frisby
-    .get(`http://0.0.0.0:3030/products/${productId}/styles`)
-    .expect('status', 200);
+describe('Styles', function () {
+  it ('GET request should return a status of 200 OK', function () {
+    return frisby
+      .get(`${baseURL}`)
+      .expect('status', 200);
+  });
+
+  it ('should have a JSON Content-Type header', function () {
+    return frisby
+      .get(`${baseURL}related`)
+      .expect('status', 200);
+  });
 });
 
-it ('GET request for related products returns a status of 200 OK', function () {
-  return frisby
-    .get(`http://0.0.0.0:3030/products/${productId}/related`)
-    .expect('status', 200);
+describe('Related Products', function () {
+  it ('GET request should return a status of 200 OK', function () {
+    return frisby
+      .get(`${baseURL}styles`)
+      .expect('status', 200);
+  });
+
+  it ('should have a JSON Content-Type header', function () {
+    return frisby
+      .get(`${baseURL}styles`)
+      .expect('header', 'Content-Type', 'application/json; charset=utf-8');
+  });
 });
 

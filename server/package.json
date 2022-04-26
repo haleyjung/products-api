@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "lint": "eslint ./",
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -32,8 +32,7 @@
     "jest": "^27.5.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
-    "pg": "^8.7.3",
-    "sequelize": "^6.19.0"
+    "pg": "^8.7.3"
   },
   "jest": {
     "testRegex": "((\\.|/*.)(spec))\\.js?$",
