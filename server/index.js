@@ -15,15 +15,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('SDC: products API!');
+})
+
 app.get('/products/:product_id', (req, res) => {
   let product = [];
-  let productId = req.params.product_id - 37310;
+  let product_id = req.params.product_id - 37310;
   pool
-    .query(`SELECT * FROM product WHERE id = ${productId}`)
+    .query(`SELECT * FROM product WHERE id = ${product_id}`)
     .then(result => product = result.rows)
     .catch(err => res.status(500).send(`Error getting details of product: ${err.message}`));
   pool
-    .query(`SELECT feature, value FROM features WHERE product_id = ${productId}`)
+    .query(`SELECT feature, value FROM features WHERE product_id = ${product_id}`)
     .then(result => {
       product[0].id = product[0].id + 37310;
       product[0].features = result.rows;
@@ -32,23 +36,8 @@ app.get('/products/:product_id', (req, res) => {
     .catch(err => res.status(500).send(`/products/:product_id Error: ${err.message}`));
 });
 
-app.get('/products/:product_id/related', (req, res) => {
-  let productId = req.params.product_id - 37310;
-  pool
-    .query(`SELECT related_product_id from related WHERE current_product_id = ${productId}`)
-    .then((result) => {
-      let relatedIdArray = [];
-      for (let i = 0; i < result.rows.length; i++) {
-        relatedId = result.rows[i].related_product_id + 37310;
-        relatedIdArray.push(relatedId);
-      }
-      res.status(200).send(relatedIdArray);
-    })
-    .catch((err) => res.status(500).send(`Error getting details of product: ${err.message}`));
-});
-
 app.get('/products/:product_id/styles', (req, res) => {
-  let productId = req.params.product_id - 37310;
+  let product_id = req.params.product_id - 37310;
 
   const queryString = `
     SELECT
@@ -67,7 +56,7 @@ app.get('/products/:product_id/styles', (req, res) => {
               FROM (
                 SELECT thumbnail_url, url
                 FROM photos
-                WHERE photos.styles_id = styles.id
+                WHERE photos.styleId = styles.id
               ) AS photosObj
             ) AS photos, (
               SELECT json_object_agg (
@@ -75,14 +64,14 @@ app.get('/products/:product_id/styles', (req, res) => {
                 json_build_object('quantity', skus.quantity, 'size', skus.size)
               ) AS skus
               FROM skus
-              WHERE skus.style_id = styles.id
+              WHERE skus.styleId = styles.id
             ) AS skus
             FROM styles
-            WHERE product_id = ${productId}
+            WHERE productId = ${product_id}
         ) AS stylesObj
       ) AS results
       FROM product
-      WHERE id = ${productId} + 37310
+      WHERE id = ${product_id} + 37310
   `;
 
   return pool
@@ -109,8 +98,23 @@ app.get('/products/:product_id/styles', (req, res) => {
     .catch(err => console.log(err.message));
 });
 
+app.get('/products/:product_id/related', (req, res) => {
+  let product_id = req.params.product_id - 37310;
+  pool
+    .query(`SELECT related_product_id from related WHERE current_product_id = ${product_id}`)
+    .then((result) => {
+      let relatedIdArray = [];
+      for (let i = 0; i < result.rows.length; i++) {
+        relatedId = result.rows[i].related_product_id + 37310;
+        relatedIdArray.push(relatedId);
+      }
+      res.status(200).send(relatedIdArray);
+    })
+    .catch((err) => res.status(500).send(`Error getting details of product: ${err.message}`));
+});
+
 // app.get('/cart', (req, res) => {
-//   let productId = req.body.product_id;
+//   let product_id = req.body.product_id;
 //   let count = 0;
 //   pool
 //     .query(`SELECT product_id AS sku_id FROM cart`)

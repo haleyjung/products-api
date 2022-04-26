@@ -15,5 +15,5 @@ ENV PORT 3030
 EXPOSE 3030
 
 # Defind the runtime
-# CMD [ "node", "index.js" ]
-CMD [ "npm", "start" ]
+CMD [ "node", "index.js" ]
+# CMD [ "npm", "start" ]
