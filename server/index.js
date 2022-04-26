@@ -13,8 +13,8 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('SDC: products API!');
+app.get('/loaderio-3a9a273878ec716860d363d6c2c5e32d', (req, res) => {
+  res.send('loaderio-3a9a273878ec716860d363d6c2c5e32d');
 });
 
 app.get('/products/:product_id', (req, res) => {
