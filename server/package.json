@@ -37,7 +37,6 @@
   },
   "jest": {
     "testRegex": "((\\.|/*.)(spec))\\.js?$",
-    "verbose": true,
-    "testTimeout": 20000
+    "verbose": true
   }
 }

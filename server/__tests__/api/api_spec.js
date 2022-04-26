@@ -2,8 +2,6 @@ const frisby = require('frisby');
 
 let productId = 37311;
 
-jest.setTimeout(30000);
-
 it ('GET request for a single product returns a status of 200 OK', function () {
   return frisby
     .get(`http://0.0.0.0:3030/products/${productId}`)

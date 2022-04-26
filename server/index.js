@@ -20,20 +20,37 @@ app.get('/', (req, res) => {
 })
 
 app.get('/products/:product_id', (req, res) => {
-  let product = [];
   let product_id = req.params.product_id - 37310;
-  pool
-    .query(`SELECT * FROM product WHERE id = ${product_id}`)
-    .then(result => product = result.rows)
-    .catch(err => res.status(500).send(`Error getting details of product: ${err.message}`));
-  pool
-    .query(`SELECT feature, value FROM features WHERE product_id = ${product_id}`)
-    .then(result => {
-      product[0].id = product[0].id + 37310;
-      product[0].features = result.rows;
-      res.status(200).send(product);
-    })
-    .catch(err => res.status(500).send(`/products/:product_id Error: ${err.message}`));
+
+  const queryString = `
+    SELECT
+      product.id,
+      product.name,
+      product.slogan,
+      product.description,
+      product.category,
+      product.default_price,
+    (
+      SELECT json_agg(features)
+      FROM (
+        SELECT
+          styles.id AS style_id,
+          styles.name,
+          styles.original_price,
+          styles.sale_price,
+          styles.default_style AS "default?"
+          FROM styles
+          WHERE productId = ${product_id}
+      ) AS features
+    ) AS features
+    FROM product
+    WHERE id = ${product_id} + 37310
+    `;
+
+  return pool
+    .query(queryString)
+    .then(result => { res.send(result.rows) })
+    .catch(err => console.error(err.message));
 });
 
 app.get('/products/:product_id/styles', (req, res) => {
