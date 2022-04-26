@@ -18,8 +18,6 @@ app.get('/loaderio-3a9a273878ec716860d363d6c2c5e32d', (req, res) => {
 });
 
 app.get('/products/:product_id', (req, res) => {
-  let product_id = req.params.product_id - 37310;
-
   const queryString = `
     SELECT
       product.id,
@@ -38,15 +36,15 @@ app.get('/products/:product_id', (req, res) => {
           styles.sale_price,
           styles.default_style AS "default?"
           FROM styles
-          WHERE productId = ${product_id}
+          WHERE productId = $1
       ) AS features
     ) AS features
     FROM product
-    WHERE id = ${product_id} + 37310
+    WHERE id = $1 + 37310
     `;
 
   return pool
-    .query(queryString)
+    .query(queryString, [req.params.product_id - 37310])
     .then((result) => {
       res.send(result.rows);
     })
@@ -54,8 +52,6 @@ app.get('/products/:product_id', (req, res) => {
 });
 
 app.get('/products/:product_id/styles', (req, res) => {
-  let product_id = req.params.product_id - 37310;
-
   const queryString = `
     SELECT
       product.id AS product_id,
@@ -84,15 +80,15 @@ app.get('/products/:product_id/styles', (req, res) => {
               WHERE skus.styleId = styles.id
             ) AS skus
             FROM styles
-            WHERE productId = ${product_id}
+            WHERE productId = $1
         ) AS stylesObj
       ) AS results
       FROM product
-      WHERE id = ${product_id} + 37310
+      WHERE id = $1 + 37310
   `;
 
   return pool
-    .query(queryString)
+    .query(queryString, [req.params.product_id - 37310])
     .then((result) => {
       let styles = result.rows[0].results;
       for (let i = 0; i < styles.length; i++) {
@@ -110,10 +106,10 @@ app.get('/products/:product_id/styles', (req, res) => {
 });
 
 app.get('/products/:product_id/related', (req, res) => {
-  let product_id = req.params.product_id - 37310;
   pool
     .query(
-      `SELECT related_product_id from related WHERE current_product_id = ${product_id}`,
+      `SELECT related_product_id from related WHERE current_product_id = $1`,
+      [req.params.product_id - 37310]
     )
     .then((result) => {
       let relatedIdArray = [];
