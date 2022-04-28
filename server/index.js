@@ -17,6 +17,112 @@ app.get('/loaderio-38913a730479e2c866cc0d03fbcea8c4', (req, res) => {
   res.send('loaderio-38913a730479e2c866cc0d03fbcea8c4');
 });
 
+// app.get('/products/:product_id', (req, res) => {
+//   const queryString = `
+//     SELECT
+//       product.id,
+//       product.name,
+//       product.slogan,
+//       product.description,
+//       product.category,
+//       product.default_price,
+//     (
+//       SELECT json_agg(features)
+//       FROM (
+//         SELECT
+//           features.feature,
+//           features.value
+//           FROM features
+//           WHERE features.product_id = $1
+//       ) AS features
+//     ) AS features
+//     FROM product
+//     WHERE id = $1 + 37310
+//     `;
+
+//   return pool
+//     .query(queryString, [req.params.product_id - 37310])
+//     .then((result) => {
+//       res.send(result.rows);
+//     })
+//     .catch((err) => console.error(err.message));
+// });
+
+// app.get('/products/:product_id/styles', (req, res) => {
+//   const queryString = `
+//     SELECT
+//       product.id AS product_id,
+//       (
+//         SELECT json_agg(stylesObj)
+//         FROM (
+//           SELECT
+//             styles.id AS style_id,
+//             styles.name,
+//             styles.original_price,
+//             styles.sale_price,
+//             styles.default_style AS "default?",
+//             (
+//               SELECT json_agg(photosObj)
+//               FROM (
+//                 SELECT thumbnail_url, url
+//                 FROM photos
+//                 WHERE photos.styleId = styles.id
+//               ) AS photosObj
+//             ) AS photos, (
+//               SELECT json_object_agg (
+//                 skus.id,
+//                 json_build_object('quantity', skus.quantity, 'size', skus.size)
+//               ) AS skus
+//               FROM skus
+//               WHERE skus.styleId = styles.id
+//             ) AS skus
+//             FROM styles
+//             WHERE productId = $1
+//         ) AS stylesObj
+//       ) AS results
+//       FROM product
+//       WHERE id = $1 + 37310
+//   `;
+
+//   return pool
+//     .query(queryString, [req.params.product_id - 37310])
+//     .then((result) => {
+//       let styles = result.rows[0].results;
+//       for (let i = 0; i < styles.length; i++) {
+//         styles[i].style_id += 220997;
+//         let skus = styles[i].skus;
+//         for (let sku in skus) {
+//           let newKey = (Number(sku) + 1281031).toString();
+//           skus[newKey] = skus[sku];
+//           delete skus[sku];
+//         }
+//       }
+//       res.send(result.rows);
+//     })
+//     .catch((err) => console.log(err.message));
+// });
+
+// app.get('/products/:product_id/related', (req, res) => {
+//   pool
+//     .query(
+//       `SELECT related_product_id from related WHERE current_product_id = $1`,
+//       [req.params.product_id - 37310]
+//     )
+//     .then((result) => {
+//       let relatedIdArray = [];
+//       for (let i = 0; i < result.rows.length; i++) {
+//         relatedId = result.rows[i].related_product_id + 37310;
+//         relatedIdArray.push(relatedId);
+//       }
+//       res.status(200).send(relatedIdArray);
+//     })
+//     .catch((err) =>
+//       res.status(500).send(`Error getting details of product: ${err.message}`),
+//     );
+// });
+
+// -----
+
 app.get('/products/:product_id', (req, res) => {
   const queryString = `
     SELECT
@@ -37,11 +143,11 @@ app.get('/products/:product_id', (req, res) => {
       ) AS features
     ) AS features
     FROM product
-    WHERE id = $1 + 37310
+    WHERE id = $1
     `;
 
   return pool
-    .query(queryString, [req.params.product_id - 37310])
+    .query(queryString, [req.params.product_id])
     .then((result) => {
       res.send(result.rows);
     })
@@ -81,22 +187,22 @@ app.get('/products/:product_id/styles', (req, res) => {
         ) AS stylesObj
       ) AS results
       FROM product
-      WHERE id = $1 + 37310
+      WHERE id = $1
   `;
 
   return pool
-    .query(queryString, [req.params.product_id - 37310])
+    .query(queryString, [req.params.product_id])
     .then((result) => {
-      let styles = result.rows[0].results;
-      for (let i = 0; i < styles.length; i++) {
-        styles[i].style_id += 220997;
-        let skus = styles[i].skus;
-        for (let sku in skus) {
-          let newKey = (Number(sku) + 1281031).toString();
-          skus[newKey] = skus[sku];
-          delete skus[sku];
-        }
-      }
+      // let styles = result.rows[0].results;
+      // for (let i = 0; i < styles.length; i++) {
+      //   styles[i].style_id += 220997;
+      //   let skus = styles[i].skus;
+      //   for (let sku in skus) {
+      //     let newKey = (Number(sku) + 1281031).toString();
+      //     skus[newKey] = skus[sku];
+      //     delete skus[sku];
+      //   }
+      // }
       res.send(result.rows);
     })
     .catch((err) => console.log(err.message));
@@ -106,20 +212,23 @@ app.get('/products/:product_id/related', (req, res) => {
   pool
     .query(
       `SELECT related_product_id from related WHERE current_product_id = $1`,
-      [req.params.product_id - 37310]
+      [req.params.product_id]
     )
     .then((result) => {
-      let relatedIdArray = [];
-      for (let i = 0; i < result.rows.length; i++) {
-        relatedId = result.rows[i].related_product_id + 37310;
-        relatedIdArray.push(relatedId);
-      }
-      res.status(200).send(relatedIdArray);
+      // let relatedIdArray = [];
+      // for (let i = 0; i < result.rows.length; i++) {
+      //   relatedId = result.rows[i].related_product_id + 37310;
+      //   relatedIdArray.push(relatedId);
+      // }
+      // res.status(200).send(relatedIdArray);
+      res.send(result.rows);
     })
     .catch((err) =>
       res.status(500).send(`Error getting details of product: ${err.message}`),
     );
 });
+
+// ----
 
 // app.get('/cart', (req, res) => {
 //   let product_id = req.body.product_id;
