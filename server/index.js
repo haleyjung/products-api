@@ -30,13 +30,10 @@ app.get('/products/:product_id', (req, res) => {
       SELECT json_agg(features)
       FROM (
         SELECT
-          styles.id AS style_id,
-          styles.name,
-          styles.original_price,
-          styles.sale_price,
-          styles.default_style AS "default?"
-          FROM styles
-          WHERE productId = $1
+          features.feature,
+          features.value
+          FROM features
+          WHERE features.product_id = $1
       ) AS features
     ) AS features
     FROM product
