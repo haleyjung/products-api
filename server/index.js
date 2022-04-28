@@ -13,8 +13,8 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/loaderio-3a9a273878ec716860d363d6c2c5e32d', (req, res) => {
-  res.send('loaderio-3a9a273878ec716860d363d6c2c5e32d');
+app.get('/loaderio-38913a730479e2c866cc0d03fbcea8c4', (req, res) => {
+  res.send('loaderio-38913a730479e2c866cc0d03fbcea8c4');
 });
 
 app.get('/products/:product_id', (req, res) => {
