@@ -6,22 +6,25 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "lint": "eslint ./",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "benchmark": "node benchmark/benchmark-run.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sdc-cinnamon/sdc-products.git"
   },
-  "author": "",
+  "author": "haleyjung",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sdc-cinnamon/sdc-products/issues"
   },
   "homepage": "https://github.com/sdc-cinnamon/sdc-products#readme",
   "dependencies": {
+    "autocannon": "^7.8.1",
     "axios": "^0.26.1"
   },
   "devDependencies": {
+    "artillery": "^2.0.0-14",
     "babel-jest": "^27.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -32,7 +35,8 @@
     "jest": "^27.5.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "redis": "^4.0.6"
   },
   "jest": {
     "testRegex": "((\\.|/*.)(spec))\\.js?$",
