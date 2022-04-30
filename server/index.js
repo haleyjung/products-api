@@ -7,12 +7,12 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 
 // Redis
-const { createClient } = require('redis');
-const client = createClient();
-client.on('error', (err) => console.log('Redis Client Error', err));
-client.connect();
+// const { createClient } = require('redis');
+// const client = createClient();
+// client.on('error', (err) => console.log('Redis Client Error', err));
+// client.connect();
 
-const DEFAULT_EXPIRATION = 3600; // 1hr
+// const DEFAULT_EXPIRATION = 3600; // 1hr
 
 // * --- middlewares ---- * //
 app.use(cors());
@@ -21,15 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // * --- loader.io ---- * //
-var var0 = '/loaderio-a9f179ad9d0fb3143bca38ec33e7f136.txt'
-var var1 = '/loaderio-a9f179ad9d0fb3143bca38ec33e7f136.html'
-var var2 = '/loaderio-a9f179ad9d0fb3143bca38ec33e7f136/'
-app.use((req, res) => {
-  let reqPath = req.path;
-  if (reqPath === var0 || reqPath === var1 || reqPath === var2) {
-    res.send('loaderio-a9f179ad9d0fb3143bca38ec33e7f136')
-  }
-})
+app.get('/loaderio-a9f179ad9d0fb3143bca38ec33e7f136', (req, res) => {
+  res.send('loaderio-a9f179ad9d0fb3143bca38ec33e7f136');
+});
 
 // * ---- redis ----- * //
 // app.get('/products/:product_id', (req, res) => {
