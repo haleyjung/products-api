@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // * --- loader.io ---- * //
-app.get('/loaderio-a9f179ad9d0fb3143bca38ec33e7f136', (req, res) => {
+app.get('/loaderio-a9f179ad9d0fb3143bca38ec33e7f136/', (req, res) => {
   res.send('loaderio-a9f179ad9d0fb3143bca38ec33e7f136');
 });
 
