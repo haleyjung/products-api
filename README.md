@@ -2,7 +2,7 @@
 
 # System Design Capstone: /products
 
-Working in a team of three engineers, we inherited a legacy codebase of an existing e-commerce web application to build 3 micro services that will withstand the web scale traffic loads. Each member took ownership of one unique API service that will maintain the existing application data set. I was responsible for redesigning and building a backend server and database for the products API service.
+The goal of the project was to build a scalable RESTful API for an existing e-commerce web application and optimize it to withstand the web scale traffic loads. Working in a team of three engineers, we inherited a legacy codebase and each member took ownership of a micro service that will maintain the existing application data set. I was responsible for redesigning and building a backend server and database for the products API service.
 
 ## Tech Stack
 
@@ -10,6 +10,7 @@ Working in a team of three engineers, we inherited a legacy codebase of an exist
 ![Express](https://img.shields.io/badge/-Express-DCDCDC?logo=express&logoColor=black&style=for-the-badge)
 ![Node](https://img.shields.io/badge/-Node-9ACD32?logo=node.js&logoColor=white&style=for-the-badge)
 ![NGINX](https://img.shields.io/badge/-NGINX-009900?logo=nginx&logoColor=white&style=for-the-badge)
+![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)
 ![AWS](https://img.shields.io/badge/-AWS-232F3E?logo=amazonaws&logoColor=white&style=for-the-badge)
 ![Jest](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white&style=for-the-badge)
 ![AutoCannon](https://img.shields.io/badge/-AutoCannon-696969?logo=autocannon&logoColor=white&style=for-the-badge)
@@ -21,22 +22,23 @@ Working in a team of three engineers, we inherited a legacy codebase of an exist
 
 - Design and evaluate **RDBMS** and **DBMS** and consider tradeoffs: selected **PostgreSQL**
 
-- Performe an **ETL Process** to transfer the full application data set (55M) into PostgreSQL database
+- Performe an **ETL Process** to transfer the full application data set (20M+) into PostgreSQL database
 
-- Optimize queries using **B-tree indexes** and reduce latency by building **aggregate tables**
+- Optimize queries using **B-tree indexes**, **connecting pooling** and building **aggregate tables**
 
 ## Deployment
 
+- Containerize the database and server using Docker
 - Set up **NGINX load balancer** with ip_hash method for horizontal scaling and reduce latency by 800%
 - Scale microservice to handle 3000 RPS by deploying 3 Node/Express servers and database on **AWS EC2**
 
 ## Load & Stress Testing
 
 - Used **AutoCannon** to simulate load on the server in development environment
-- Conducted cloud-based performance and stress testing with **loader.io** 
+- Conducted cloud-based performance and stress testing on **loader.io** with randomized product IDs
 - Achieved 3000 RPS with latency 10ms with 0% error rate 
 
-| Endpoints  | /product_id  | /product_id/styles | /product_id/related |
+| Endpoints  | /:product_id  | /:product_id/styles | /:product_id/related |
 | ------------- | ------------- | ------------- | ------------- |
 | **Avg res time**  | 4ms  | 5ms  | 4ms  |
 | **Min/Max**  | 3/125ms  | 3/88ms  | 3/67ms  |
