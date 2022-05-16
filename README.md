@@ -36,7 +36,7 @@ Working in a team of three engineers, we inherited a legacy codebase of an exist
 - Conducted cloud-based performance and stress testing with **loader.io** 
 - Achieved 3000 RPS with latency 10ms with 0% error rate 
 
-| Endpoints  | /products/product_id  | /products/product_id/styles | /products/product_id/related |
+| Endpoints  | /product_id  | /product_id/styles | /product_id/related |
 | ------------- | ------------- | ------------- | ------------- |
 | **Avg res time**  | 4ms  | 5ms  | 4ms  |
 | **Min/Max**  | 3/125ms  | 3/88ms  | 3/67ms  |
