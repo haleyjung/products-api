@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-# System Design Capstone: /products
+# System Design: Products API
 
 The goal of the project was to build a scalable RESTful API for an existing e-commerce web application and optimize it to withstand the web scale traffic loads. Working in a team of three engineers, we inherited a legacy codebase and each member took ownership of a micro service that will maintain the existing application data set. I was responsible for redesigning and building a backend server and database for the products API service.
 
