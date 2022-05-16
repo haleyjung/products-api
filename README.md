@@ -2,7 +2,7 @@
 
 # System Design Capstone: /products
 
-Working in a team of three engineers, we inherited a legacy codebase of an existing e-commerbe web application to build 3 micro services that will withstand the web scale traffic loads. Each member took ownership of one unique API service that will maintain the existing application data set. I was responsible for redesigning and building a backend server and database for the products API service.
+Working in a team of three engineers, we inherited a legacy codebase of an existing e-commerce web application to build 3 micro services that will withstand the web scale traffic loads. Each member took ownership of one unique API service that will maintain the existing application data set. I was responsible for redesigning and building a backend server and database for the products API service.
 
 ## Tech Stack
 
