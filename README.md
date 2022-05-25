@@ -44,6 +44,166 @@ The goal of the project was to build a scalable RESTful API for an existing e-co
 | **Min/Max**  | 3/125ms  | 3/88ms  | 3/67ms  |
 | **Err rate**  | 0%  | 0%   | 0%  |
 
+## API Endpoints
+
+### `GET /products`
+Retrieve a list of products
+
+#### Parameters
+| Parameter | Type    | Description                                               |
+|-----------|---------|-----------------------------------------------------------|
+| page      | Integer | Selects the page of results to return. Default 1.         |
+| page_size | Integer | Specifies how many results per page to return. Default 10.|
+
+#### Response
+```json
+[
+    {
+        "id": 1,
+        "name": "Camo Onesie",
+        "slogan": "Blend in to your crowd",
+        "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+        "category": "Jackets",
+        "default_price": 140
+    },
+    {
+        "id": 2,
+        "name": "Bright Future Sunglasses",
+        "slogan": "You've got to wear shades",
+        "description": "Where you're going you might not need roads, but you definitely need some shades. Give those baby blues a rest and let the future shine bright on these timeless lenses.",
+        "category": "Accessories",
+        "default_price": 69
+    },
+    {
+        "id": 3,
+        "name": "Morning Joggers",
+        "slogan": "Make yourself a morning person",
+        "description": "Whether you're a morning person or not.  Whether you're gym bound or not.  Everyone looks good in joggers.",
+        "category": "Pants",
+        "default_price": 40
+    }
+]
+```
+
+### `GET /products/:product_id`
+Returns all the product level information for a specified product id.
+
+#### Parameters
+| Parameter  | Type    | Description                                       |
+|------------|---------|---------------------------------------------------|
+| product_id | Integer | Required ID of the product for which data should be returned. |
+
+#### Response
+```json
+{
+    "id": 1,
+    "name": "Camo Onesie",
+    "slogan": "Blend in to your crowd",
+    "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+    "category": "Jackets",
+    "default_price": 140,
+    "features": [
+        {
+            "feature": "Buttons",
+            "value": "Brass"
+        },
+        {
+            "feature": "Fabric",
+            "value": "Canvas"
+        }
+    ]
+}
+```
+
+### `GET /products/:product_id/styles`
+Returns all the styles of the specified product.
+
+#### Parameters
+| Parameter  | Type    | Description                                       |
+|------------|---------|---------------------------------------------------|
+| product_id | Integer | Required ID of the product for which data should be returned |
+
+#### Response
+```json
+{
+    "product_id": "1",
+    "results": [
+        {
+            "style_id": 1,
+            "name": "Forest Green & Black",
+            "original_price": 140,
+            "sale_price": null,
+            "default?": true,
+            "photos": [
+                {
+                    "url": "placeholder/image.jpg",
+                    "thumbnail_url": "placeholder/image_thumbnail.jpg"
+                },
+                {
+                    "url": "placeholder/image.jpg",
+                    "thumbnail_url": "placeholder/image_thumbnail.jpg"
+                }
+            ],
+            "skus": {
+                "1": {
+                    "quantity": 8,
+                    "size": "XS"
+                },
+                "2": {
+                    "quantity": 16,
+                    "size": "S"
+                }
+            }
+        },
+        {
+            "style_id": 2,
+            "name": "Desert Brown & Tan",
+            "original_price": 140,
+            "sale_price": null,
+            "default?": false,
+            "photos": [
+                {
+                    "url": "placeholder/image.jpg",
+                    "thumbnail_url": "placeholder/image_thumbnail.jpg"
+                },
+                {
+                    "url": "placeholder/image.jpg",
+                    "thumbnail_url": "placeholder/image_thumbnail.jpg"
+                }
+            ],
+            "skus": {
+                "7": {
+                    "quantity": 16,
+                    "size": "S"
+                },
+                "8": {
+                    "quantity": 8,
+                    "size": "XS"
+                }
+            }
+        }
+    ]
+}
+```
+
+### `GET /products/:product_id/related`
+Returns the product ids related to the specified product.
+
+#### Parameters
+| Parameter  | Type    | Description                                       |
+|------------|---------|---------------------------------------------------|
+| product_id | Integer | Required ID of the product for which data should be returned |
+
+#### Response
+```json
+[
+  3,
+  5,
+  9,
+  8
+]
+```
+
 ## Getting Started
 
 ### Prerequisites
